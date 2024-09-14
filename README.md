@@ -39,20 +39,33 @@ TweetHub is a Twitter clone built with Node.js, Sequelize, and MySQL. This repos
 ## Endpoints
 
 # Auth
+
 - **POST /auth/signup**: Register a new user.
 - **POST /auth/login**: Log in with existing credentials.
 
 # Tweets
+
 - **GET /tweets**: Get all tweets (supports pagination).
 - **POST /tweets**: Create a new tweet (requires authentication).
 - **PUT /tweets/:id**: Edit a tweet (requires authentication).
 - **DELETE /tweets/:id**: Delete a tweet (requires authentication)
 
 # User
+
 - **GET /users/:id**: Get user profile by ID.
 - **POST /users/:id/follow**: Follow a user (requires authentication).
 - **POST /users/:id/unfollow**: Unfollow a user (requires authentication).
 
-
 # Notifications
+
 - **GET /notifications**: Get all notifications for the logged-in user.
+
+# Likes
+
+- **POST /tweets/:id/like**: Like a tweet (requires authentication).
+- **DELETE /tweets/:id/unlike**: Unlike a tweet (requires authentication).
+
+# Retweets
+
+- **POST /tweets/:id/retweet**: Retweet a tweet (requires authentication).
+- **DELETE /tweets/:id/unretweet**: Remove a retweet (requires authentication).

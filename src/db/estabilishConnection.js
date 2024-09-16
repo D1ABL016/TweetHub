@@ -1,7 +1,11 @@
 const { Sequelize } = require('sequelize');
+const dotenv = require('dotenv');
+const path = require('path');
 
-const sequelize = new Sequelize('twitterClone', 'root', 'Dontdothis@123', {
-    host: 'localhost',
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+const sequelize = new Sequelize("twitterClone","root","Dontdothis@123", {
+    host: "localhost",
     define: {
         timestamps: false,
     },

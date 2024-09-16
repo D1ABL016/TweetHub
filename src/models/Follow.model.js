@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db/estabilishConnection.js");
-const followNoti = require("../controllers/Notification.Controller").followNotification;
+const FollowHook = require("../hooks/Follow.AfterCreate.js");
 class Follow extends Model {}
 
 Follow.init(
@@ -12,11 +12,7 @@ Follow.init(
   }
 );
 
-Follow.addHook("afterCreate", async (Follow, options) => {
-  const followerId = Follow.followerId;
-  const followingId = Follow.followingId;
-  await followNoti(followerId, followingId);
-});
+Follow.addHook("afterCreate", FollowHook);
 
 
 module.exports = Follow;

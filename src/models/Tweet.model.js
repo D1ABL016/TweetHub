@@ -1,8 +1,5 @@
-
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db/estabilishConnection.js");
-
-const User = require("./User.model.js");
 
 class Tweet extends Model {}
 
@@ -17,11 +14,5 @@ Tweet.init(
     modelName: "Tweet",
   }
 );
-
-User.hasMany(Tweet);
-Tweet.belongsTo(User);
-
-
-
 
 module.exports=Tweet

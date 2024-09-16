@@ -9,8 +9,8 @@ class Notification extends Model {}
 Notification.init(
   {
     Content: DataTypes.STRING,
-    Read:{
-      DataTypes:DataTypes.BOOLEAN,
+    Read:{      
+      type:DataTypes.BOOLEAN,
       defaultValue:false
     },
   },
@@ -21,7 +21,5 @@ Notification.init(
   }
 );
 
-User.hasMany(Notification);
-Notification.belongsTo(User);
 
 module.exports = Notification

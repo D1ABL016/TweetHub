@@ -1,17 +1,23 @@
 const constants = require("../constants.js");
-const User = require("../models/User.model.js");
-const Notification = require("../models/Notification.model.js");
+const Notification = require("../models/Notification.model");
+const User = require("../models/User.model");
+
+
+
 const CreateAccount = async (userId) => {
   try {
     const user = await User.findOne({ where: { id: userId } });
     const username = user.username;
+    console.log("username : ", username);
     const content = constants.creatingAccountmsg(username);
+    console.log("content : ", content);
     const data = {
-      content: content,
+      Content: content,
       UserId: userId,
     };
+    console.log("data : ", data);
     const notification = await Notification.create(data);
-    return notification;
+
   } catch (error) {
     console.log("error : ", error);
   }
@@ -114,10 +120,19 @@ const getNotifications = async (req, res) => {
   }
 };
 
+User.addHook("afterCreate", async(user, options) => {
+  await CreateAccount(user.id);
+});
+
+
+
+
+
+
 module.exports = {
   getNotifications,
-  followNotification,
   likeNotification,
+  followNotification,
   retweetNotification,
-  CreateAccount,
-};
+  CreateAccount
+}

@@ -29,9 +29,9 @@ const followerNotification = async (slave, master) => {
       where: { id: slave },
     });
     const content = constants.followermsg(user.username);
-    
+    console.log("content : ", content);
     const data = {
-      content: content,
+      Content: content,
       UserId: master,
     };
     const notification = await Notification.create(data);
@@ -49,7 +49,7 @@ const followingNotification = async (slave, master) => {
     const content = constants.followingmsg(user.username);
     // const userid = user.id;
     const data = {
-      content: content,
+      Content: content,
       UserId: slave,
     };
     const notification = await Notification.create(data);
@@ -70,7 +70,7 @@ const retweetNotification = async (
     const content = constants.retweetmsg(user.username);
     // const userid = user.id;
     const data = {
-      content: content,
+      Content: content,
       UserId: notificationReciever,
     };
     const notification = await Notification.create(data);
@@ -123,10 +123,6 @@ const getNotifications = async (req, res) => {
 User.addHook("afterCreate", async(user, options) => {
   await CreateAccount(user.id);
 });
-
-
-
-
 
 
 module.exports = {

@@ -9,6 +9,9 @@ const authRouter = require('./routes/auth.route');
 const userRouter = require('./routes/user.route');
 const notificationRouter = require('./routes/notification.route');
 const followRouter = require('./routes/follow.route');
+const likeRouter = require('./routes/like.route');  
+
+
 const ApiResponse = require('./utils/ApiResponse');
 
 const passportAuthenticate = require('./middlewares/JWT.middleware');
@@ -23,6 +26,7 @@ app.use('/users', userRouter);
 app.use('/notifications', notificationRouter);
 app.use('/auth', authRouter);
 app.use('/follow', followRouter);
+app.use('/like', likeRouter);
 
 app.get('/protected',passportAuthenticate(), (req, res) => {
     res.status(200).send(new ApiResponse(req.user, 200));

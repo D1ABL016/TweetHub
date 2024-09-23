@@ -4,6 +4,15 @@ const Tweet = require("../models/Tweet.model.js");
 const Retweet = require("../models/Retweet.model.js");
 const Notification = require("../models/Notification.model.js");
 const Follow = require("../models/Follow.model.js");
+
+
+
+const FollowHook = require("../hooks/Follow.AfterCreate.js");
+const LikeHook = require("../hooks/Like.AfterCreate.js");
+const RetweetHook = require("../hooks/Retweet.AfterCreate.js");
+const hashPassword = require("../hooks/User.BeforeSave.js");
+const CreateAccount = require("../hooks/User.AfterCreate.js");
+
 const sequelize = require("./estabilishConnection.js");
 
 //relationships
@@ -38,7 +47,13 @@ Retweet.belongsTo(User);
 User.hasMany(Tweet);
 Tweet.belongsTo(User);
 
-sequelize.sync();
+Follow.addHook("afterCreate", FollowHook);
+Like.addHook("afterCreate", LikeHook);
+Retweet.addHook("afterCreate", RetweetHook);
+User.addHook("beforeSave", hashPassword);
+User.addHook("afterCreate", CreateAccount);
+
+sequelize.sync({ alter: true });
 
 module.exports = {
   User,

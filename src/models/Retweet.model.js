@@ -2,7 +2,7 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db/estabilishConnection.js");
 
-const RetweetHook = require("../hooks/Retweet.AfterCreate.js");
+
 class Retweet extends Model {}
 
 Retweet.init(
@@ -17,7 +17,7 @@ Retweet.init(
   }
 );
 
-Retweet.addHook("afterCreate", RetweetHook);
+
 
 
 module.exports=Retweet

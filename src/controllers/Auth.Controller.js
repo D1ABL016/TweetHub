@@ -8,7 +8,15 @@ dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 const createUser = async (req, res) => {
   try {
-    const data = await User.create(req.body);
+    if(!req.body.username || !req.body.password || !req.body.email){
+      return res.status(401).json(new ApiResponse("All fields are required", 401));
+    }
+    const userData = {
+      username: req.body.username,
+      password: req.body.password ,
+      email: req.body.email,
+    }
+    const data = await User.create(userData);
     return res.status(200).json(new ApiResponse(data, 200));
   } catch (error) {
     console.log("error : ", error);

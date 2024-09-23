@@ -2,11 +2,9 @@ const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db/estabilishConnection.js");
 
 const bcrypt = require("bcrypt");
-const hashPassword = require("../hooks/User.BeforeSave.js");
-
-
 const dotenv = require("dotenv");
 const path = require("path");
+const Follow = require("./Follow.model.js");
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 class User extends Model {}
@@ -37,6 +35,18 @@ User.init(
     Bio: {
       type: DataTypes.STRING,
     },
+    followerCount : {
+      type:DataTypes.VIRTUAL,
+      get() {
+        return Follow.count({ where: { followeeId: this.id } });
+      }
+    },
+    followingCount : {
+      type:DataTypes.VIRTUAL,
+      get() {
+        return Follow.count({ where: { followerId: this.id } });
+      }
+    }
   },
   {
     timestamps: true,
@@ -55,11 +65,5 @@ User.comparePassword = async (candidatePassword, userPassword) => {
     console.log("error : ", error);
   }
 };
-
-//hooks
-User.addHook("beforeSave", hashPassword);
-
-
-
 
 module.exports = User;

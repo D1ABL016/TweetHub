@@ -6,7 +6,7 @@ const checkPermission = async (req, res, next) => {
         const userId = req.user.id;
         const tweetId = req.body.tweetId;
     
-        const tweet = await Tweet.findOne({ where: { id: tweetId } });
+        const tweet = await Tweet.findByPk(tweetId);
         
         const CreaterOfTweet = tweet.UserId;
     

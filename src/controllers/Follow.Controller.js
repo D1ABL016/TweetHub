@@ -16,4 +16,12 @@ const follow = async (req, res) => {
     }
 }
 
-module.exports = follow
+const Unfollow = async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+module.exports = {follow, Unfollow}
